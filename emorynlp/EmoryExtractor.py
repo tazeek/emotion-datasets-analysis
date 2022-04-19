@@ -8,13 +8,20 @@ class EmoryExtractor:
     def __init__(self) -> None:
         self._files_list = []
         self._total_files = 10
-        self._file_name = "friends_season_"
+        self._file_name = "friends_season"
         self._url_json = "https://raw.githubusercontent.com/emorynlp/character-mining/master/json/"
 
         return None
 
     def _prepare_url(self, index):
-        pass
+        """
+            Prepare the filename to be added to the end of the URL
+            Filename example: friends_season_01.json
+        """
+        
+        file_num = str(index) if index > 10 else "0" + str(index)
+
+        return f"{self._file_name}_{file_num}.json"
 
     def download_files(self):
         """
