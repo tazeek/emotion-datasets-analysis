@@ -29,13 +29,18 @@ class EmoryExtractor:
 
         return self._url_json + f"{self._file_name}_{file_num}.json"
 
-    def _save_file(self, data):
-        with open('data.json', 'w') as f:
-            json.dump(data, f)
+    def _save_file(self, output_file):
+        with open('data.json', 'w') as output_file:
+            json.dump(self._files_list, output_file, indent=4)
 
         return None
 
-    def load_file(self, file_name):
+    def load_file(self, filename='emorynlp/data_level0.json'):
+
+        # Opening JSON file
+        f = open(filename)
+        self._files_list = json.load(f)
+        print(len(self._files_list))
 
         return None
 
@@ -52,7 +57,6 @@ class EmoryExtractor:
             self._files_list.append(extracted_json)
 
         # Upload it as level 0 file
-        with open('emorynlp/data_level0.json', 'w') as output_file:
-            json.dump(self._files_list, output_file, indent=4)
+        self._save_file('emorynlp/data_level0.json')
 
         return None
