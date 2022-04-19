@@ -35,8 +35,9 @@ class EmoryExtractor:
             This is done for all 10 files (file count as at 19/04/2022)
         """
 
-        for i in range(self._total_files + 1):
+        for i in range(1, self._total_files + 1):
             url = self._prepare_url(i)
+            print(url)
             extracted_json = requests.get(url).json()
             self._files_list.append(extracted_json)
 
