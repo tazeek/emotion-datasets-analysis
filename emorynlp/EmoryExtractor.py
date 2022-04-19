@@ -2,6 +2,7 @@
 # Example of raw file: https://raw.githubusercontent.com/emorynlp/character-mining/master/json/friends_season_01.json
 
 import requests
+import json
 
 class EmoryExtractor:
 
@@ -36,9 +37,7 @@ class EmoryExtractor:
 
         for i in range(self._total_files + 1):
             url = self._prepare_url(i)
-
-        url = self._prepare_url(1)
-        r = requests.get(url)
-        print(r.json())
+            extracted_json = requests.get(url).json()
+            self._files_list.append(extracted_json)
 
         return None
