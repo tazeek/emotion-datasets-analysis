@@ -18,8 +18,13 @@ class EmoryExtractor:
             Prepare the filename to be added to the end of the URL
             Filename example: friends_season_01.json
         """
+
+        file_num = ""
+
+        if index < 10:
+            file_num += "0"
         
-        file_num = str(index) if index > 10 else "0" + str(index)
+        file_num += str(index)
 
         return self._url_json + f"{self._file_name}_{file_num}.json"
 
@@ -28,6 +33,9 @@ class EmoryExtractor:
             Downloads the JSON files, converts to a dictionary, and stores in a list.
             This is done for all 10 files (file count as at 19/04/2022)
         """
+
+        for i in range(self._total_files + 1):
+            url = self._prepare_url(i)
 
         url = self._prepare_url(1)
         print(url)
