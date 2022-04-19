@@ -12,7 +12,7 @@ class DailydialogExtractor:
         self._file_url = "http://yanran.li/files/ijcnlp_dailydialog.zip"
 
     def _filter_files_zip(self, filename) -> Boolean:
-        return filename.endswith('txt','zip')
+        return filename.endswith(('txt','zip'))
     
     def download_files(self) -> None:
 
