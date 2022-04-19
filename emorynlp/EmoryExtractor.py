@@ -38,6 +38,7 @@ class EmoryExtractor:
             url = self._prepare_url(i)
 
         url = self._prepare_url(1)
-        print(url)
+        r = requests.get(url)
+        print(r.json())
 
         return None
