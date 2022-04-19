@@ -1,5 +1,7 @@
 # Website link: http://yanran.li/dailydialog
 # Dataset: http://yanran.li/files/ijcnlp_dailydialog.zip
+# Parser reference: https://github.com/Sanghoon94/DailyDialogue-Parser/blob/master/parser.py
+
 from io import BytesIO
 import requests, zipfile
 
@@ -11,9 +13,9 @@ class DailydialogExtractor:
     def download_files(self) -> None:
 
         req = requests.get(self._file_url)
-        print(req.content)
 
-        zipfile= zipfile.ZipFile(BytesIO(req.content))
-        zipfile.extractall(r'data/')
+        data_zip= zipfile.ZipFile(BytesIO(req.content))
+        print(data_zip)
+        #data_zip.extractall(r'dailydialog/')
 
         return None
