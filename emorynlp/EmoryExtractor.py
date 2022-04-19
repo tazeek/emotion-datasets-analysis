@@ -1,6 +1,8 @@
 # Repository of file: https://github.com/emorynlp/character-mining/tree/master/json
 # Example of raw file: https://raw.githubusercontent.com/emorynlp/character-mining/master/json/friends_season_01.json
 
+import requests
+
 class EmoryExtractor:
 
     def __init__(self) -> None:
@@ -10,6 +12,9 @@ class EmoryExtractor:
         self._url_json = "https://raw.githubusercontent.com/emorynlp/character-mining/master/json/"
 
         return None
+
+    def _prepare_url(self, index):
+        pass
 
     def download_files(self):
         """
