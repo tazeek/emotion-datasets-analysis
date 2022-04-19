@@ -21,12 +21,15 @@ class EmoryExtractor:
         
         file_num = str(index) if index > 10 else "0" + str(index)
 
-        return f"{self._file_name}_{file_num}.json"
+        return self._url_json + f"{self._file_name}_{file_num}.json"
 
     def download_files(self):
         """
             Downloads the JSON files, converts to a dictionary, and stores in a list.
             This is done for all 10 files (file count as at 19/04/2022)
         """
+
+        url = self._prepare_url(1)
+        print(url)
 
         return None
