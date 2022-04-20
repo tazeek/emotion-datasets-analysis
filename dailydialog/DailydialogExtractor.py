@@ -3,27 +3,29 @@
 # Parser reference: https://github.com/Sanghoon94/DailyDialogue-Parser/blob/master/parser.py
 
 from io import BytesIO
-from xmlrpc.client import Boolean
 import requests, zipfile
 
 class DailydialogExtractor:
 
     def __init__(self) -> None:
         self._file_url = "http://yanran.li/files/ijcnlp_dailydialog.zip"
+        self._data_dir = "dailydialog/data/"
 
-    def _filter_files_zip(self, filename) -> Boolean:
+    def _filter_files_zip(self, filename) -> bool:
         return filename.endswith(('txt','zip'))
+
+    def _rename_file(self, file_fragment):
+        return self._data_dir + file_fragment.filename.split('/')[-1]
     
     def download_files(self) -> None:
 
         req = requests.get(self._file_url)
 
-        data_zip= zipfile.ZipFile(BytesIO(req.content))
+        zip_file= zipfile.ZipFile(BytesIO(req.content))
 
-        for file in data_zip.namelist():
-            if self._filter_files_zip(file):
-                print(file)
-        #print(data_zip.namelist())
-        #data_zip.extractall(r'dailydialog/')
+        for file in zip_file.infolist():
+            if self._filter_files_zip(file.filename):
+                file.filename = self._rename_file(file)
+                zip_file.extract(file)
 
         return None
