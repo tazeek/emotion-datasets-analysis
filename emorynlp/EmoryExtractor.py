@@ -1,10 +1,9 @@
 # Repository of file: https://github.com/emorynlp/character-mining/tree/master/json
 # Example of raw file: https://raw.githubusercontent.com/emorynlp/character-mining/master/json/friends_season_01.json
 
-import string
-from tokenize import String
 import requests
 import json
+import os
 
 class EmoryExtractor:
 
@@ -16,7 +15,7 @@ class EmoryExtractor:
 
         return None
 
-    def _prepare_url(self, index: int) -> String:
+    def _prepare_url(self, index: int) -> str:
         """
             Prepare the filename to be added to the end of the URL
             Filename example: friends_season_01.json
@@ -31,13 +30,13 @@ class EmoryExtractor:
 
         return self._url_json + f"{self._file_name}_{file_num}.json"
 
-    def _save_file(self, output_file: string) -> None:
+    def _save_file(self, output_file: str) -> None:
         with open('data.json', 'w') as output_file:
             json.dump(self._files_list, output_file, indent=4)
 
         return None
 
-    def load_file(self, filename: string = 'emorynlp/data_level0.json') -> None:
+    def load_file(self, filename: str = 'emorynlp/data_level0.json') -> None:
         """
             Loads the given JSON file
         """
