@@ -30,8 +30,8 @@ class EmoryExtractor:
         return self._url_json + f"{self._file_name}_{file_num}.json"
 
     def _save_file(self, output_file: str) -> None:
-        with open('data.json', 'w') as output_file:
-            json.dump(self._files_list, output_file, indent=4)
+        with open(output_file, 'w') as file:
+            json.dump(self._files_list, file, indent=4)
 
         return None
 
