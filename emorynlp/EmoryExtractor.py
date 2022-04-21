@@ -3,7 +3,6 @@
 
 import requests
 import json
-import os
 
 class EmoryExtractor:
 
