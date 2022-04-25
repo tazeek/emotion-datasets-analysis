@@ -6,7 +6,7 @@ import json
 class RecconExtractor:
 
     def __init__(self) -> None:
-        self._files_list = ['dailydialog_test.json', 
+        self._files_name = ['dailydialog_test.json', 
             'dailydialog_train.json', 'dailydialog_valid.json'#, 'iemocap_test.json'
         ]
 
@@ -25,7 +25,8 @@ class RecconExtractor:
 
     def download_files(self) -> None:
 
-        for file in self._files_list:
+        for file in self._files_name:
+            print(f"Downloading file: {file}")
             url = self._prepare_url(file)
             extracted_json = requests.get(url).json()
             self._files_list.append(extracted_json)
