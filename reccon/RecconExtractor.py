@@ -4,4 +4,6 @@
 class RecconExtractor:
 
     def __init__(self) -> None:
-        pass
+        self._files_list = ['dailydialog_test.json', 
+        'dailydialog_train.json', 'dailydialog_valid.json', 'iemocap_test.json'
+    ]
