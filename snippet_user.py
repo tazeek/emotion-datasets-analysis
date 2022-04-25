@@ -14,3 +14,4 @@ from reccon.RecconExtractor import RecconExtractor
 #meld_extractor.download_file()
 
 reccon_extractor = RecconExtractor()
+reccon_extractor.download_files()

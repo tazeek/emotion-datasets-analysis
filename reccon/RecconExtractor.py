@@ -13,4 +13,7 @@ class RecconExtractor:
 
     def download_files(self) -> None:
 
+        for file in self._files_list:
+            print(file)
+            
         return None
