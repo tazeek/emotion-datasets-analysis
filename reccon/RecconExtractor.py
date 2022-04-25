@@ -7,3 +7,10 @@ class RecconExtractor:
         self._files_list = ['dailydialog_test.json', 
         'dailydialog_train.json', 'dailydialog_valid.json', 'iemocap_test.json'
     ]
+
+    def __prepare_url(self, file_name) -> str:
+        return None
+
+    def download_files(self) -> None:
+
+        return None
