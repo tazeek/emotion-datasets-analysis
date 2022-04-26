@@ -35,7 +35,7 @@ class EmoryExtractor:
 
         return None
 
-    def load_file(self, filename: str = 'emorynlp/data_level0.json') -> None:
+    def load_file(self, filename: str = 'data_level0.json') -> None:
         """
             Loads the given JSON file
         """
