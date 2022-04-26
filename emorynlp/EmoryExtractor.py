@@ -42,7 +42,7 @@ class EmoryExtractor:
         f = open(filename)
         self._files_list = json.load(f)
 
-        return None
+        return self._files_list
 
     def download_files(self) -> None:
         """
