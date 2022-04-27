@@ -9,6 +9,8 @@ class EmpDiaExtractor:
     def __init__(self) -> None:
         self._file_url = "https://dl.fbaipublicfiles.com/parlai/empatheticdialogues/empatheticdialogues.tar.gz"
         self._data_dir = "empathetic_dialogue/data/"
+        self._csv_files = ['empatheticdialogues/test.csv', 
+            'empatheticdialogues/train.csv', 'empatheticdialogues/valid.csv']
     
     def _filter_files_zip(self, filename) -> bool:
         return filename.endswith(('csv'))
@@ -21,9 +23,6 @@ class EmpDiaExtractor:
         req = requests.get(self._file_url, stream=True)
         file_list = tarfile.open(fileobj=req.raw, mode="r|gz")
 
-        for file in file_list.getmembers():
-            if self._filter_files_zip(file.name):
-                file.name = self._rename_file(file)
-                file_list.extractfile(file)
+        file_list.extractall(self._data_dir)
 
         return None
