@@ -17,6 +17,9 @@ class RecconAnalyzer:
         # For finding the types of cause, for emotions
         self._cause_type_counter = {}
 
+        # Find the number of utterances per dialogue
+        self._utt_per_diag_counter = []
+
     def _load_file(self) -> json:
         return json.load(open('data_level0.json',encoding="utf-8"))
 
@@ -28,6 +31,11 @@ class RecconAnalyzer:
     def _update_type_counter(self, type_list: list) -> None:
         for type in type_list:
             self._cause_type_counter[type] = self._cause_type_counter.get(type, 0) + 1
+
+        return None
+    
+    def _update_utter_diag_counter(self, utter_list: list) -> None:
+        self._utt_per_diag_counter += [len(utter_list)]
 
         return None
     
@@ -49,6 +57,9 @@ class RecconAnalyzer:
     def fetch_raw_json(self) -> json:
         return self._json_file
 
+    def fetch_utter_diag_counts(self) -> list:
+        return self._utt_per_diag_counter
+
     def fetch_partition_file(self, part: str) -> json:
         index =  self._dataset_division[part]
         return self._json_file[index]
@@ -57,6 +68,8 @@ class RecconAnalyzer:
         
         for key in file.keys():
             dialogue_set = file[key][0]
+
+            num_utterances = len(dialogue_set)
 
             for utterance_dict in dialogue_set:
                 self._parse_utterance_dict(utterance_dict)
