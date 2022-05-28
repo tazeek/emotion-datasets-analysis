@@ -14,6 +14,9 @@ class RecconAnalyzer:
         # For finding the distribution of emotions
         self._emotion_counter = {}
 
+        # For finding the types of cause, for emotions
+        self._cause_type_counter = {}
+
     def _load_file(self) -> json:
         return json.load(open('data_level0.json',encoding="utf-8"))
 
@@ -22,12 +25,22 @@ class RecconAnalyzer:
 
         return None
     
-    def _parse_utterance_dict(self, utt_dict: dict) -> None:
-        emotion = utt_dict['emotion']
-
-        self._update_emotion_counter(emotion)
+    def _update_cause_counter(self, type: str) -> None:
+        self._cause_type_counter[type] = self._cause_type_counter.get(type, 0) + 1
 
         return None
+    
+    def _parse_utterance_dict(self, utt_dict: dict) -> None:
+        emotion = utt_dict.get("emotion", None)
+        cause_type = utt_dict.get("type", 'empty')
+
+        self._update_emotion_counter(emotion)
+        self._update_type_counter(cause_type)
+
+        return None
+
+    def fetch_cause_counts(self) -> dict:
+        return self._cause_type_counter
 
     def fetch_emotion_counts(self) -> dict:
         return self._emotion_counter
