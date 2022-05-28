@@ -66,7 +66,7 @@ class RecconAnalyzer:
 
         return None
     
-    def _parse_utterance_dict(self, utt_dict: dict, total_tokens_list: []) -> None:
+    def _parse_utterance_dict(self, utt_dict: dict, total_tokens_list: list) -> None:
         emotion = utt_dict.get("emotion", None)
         cause_type_list = utt_dict.get("type", ['empty'])
         utterance = utt_dict.get("utterance", "")
