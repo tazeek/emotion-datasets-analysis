@@ -25,17 +25,18 @@ class RecconAnalyzer:
 
         return None
     
-    def _update_cause_counter(self, type: str) -> None:
-        self._cause_type_counter[type] = self._cause_type_counter.get(type, 0) + 1
+    def _update_type_counter(self, type_list: list) -> None:
+        for type in type_list:
+            self._cause_type_counter[type] = self._cause_type_counter.get(type, 0) + 1
 
         return None
     
     def _parse_utterance_dict(self, utt_dict: dict) -> None:
         emotion = utt_dict.get("emotion", None)
-        cause_type = utt_dict.get("type", 'empty')
+        cause_type_list = utt_dict.get("type", ['empty'])
 
         self._update_emotion_counter(emotion)
-        self._update_type_counter(cause_type)
+        self._update_type_counter(cause_type_list)
 
         return None
 
