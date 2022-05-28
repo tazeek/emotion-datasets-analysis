@@ -13,6 +13,9 @@ class RecconAnalyzer:
 
     def _load_file(self) -> json:
         return json.load(open('data_level0.json',encoding="utf-8"))
+    
+    def _parse_utterance_dict(self, utt_dict: dict) -> None:
+        pass
 
     def fetch_raw_json(self) -> json:
         return self._json_file
@@ -20,3 +23,13 @@ class RecconAnalyzer:
     def fetch_partition_file(self, part: str) -> json:
         index =  self._dataset_division[part]
         return self._json_file[index]
+
+    def perform_analysis(self, file: json) -> None:
+        
+        for key in file.keys():
+            dialogue_set = file[key][0]
+
+            for utterance_dict in dialogue_set:
+                self._parse_utterance_dict(utterance_dict)
+        
+        return None
