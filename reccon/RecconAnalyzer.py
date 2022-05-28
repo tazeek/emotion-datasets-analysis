@@ -11,8 +11,12 @@ class RecconAnalyzer:
             'valid': 2,
         }
 
-    def _load_file(self):
+    def _load_file(self) -> json:
         return json.load(open('data_level0.json',encoding="utf-8"))
 
     def fetch_raw_json(self) -> json:
         return self._json_file
+
+    def fetch_partition_file(self, part: str) -> json:
+        index =  self._dataset_division[part]
+        return self._json_file[index]
