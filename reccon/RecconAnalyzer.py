@@ -20,6 +20,11 @@ class RecconAnalyzer:
         # Find the number of utterances (per dialogue)
         self._utt_per_diag_counter = []
 
+        # Find the number of tokens (per utterance)
+        self._token_counts = []
+
+        return None
+
     def _load_file(self) -> json:
         return json.load(open('data_level0.json',encoding="utf-8"))
 
@@ -69,7 +74,7 @@ class RecconAnalyzer:
         for key in file.keys():
             dialogue_set = file[key][0]
 
-            num_utterances = len(dialogue_set)
+            self._update_utter_diag_counter(dialogue_set)
 
             for utterance_dict in dialogue_set:
                 self._parse_utterance_dict(utterance_dict)
