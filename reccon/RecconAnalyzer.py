@@ -11,13 +11,13 @@ class RecconAnalyzer:
             'valid': 2,
         }
 
-        # For finding the distribution of emotions
+        # For finding the distribution of emotions (per utterance)
         self._emotion_counter = {}
 
-        # For finding the types of cause, for emotions
+        # For finding the types of cause, for emotions (per utterance)
         self._cause_type_counter = {}
 
-        # Find the number of utterances per dialogue
+        # Find the number of utterances (per dialogue)
         self._utt_per_diag_counter = []
 
     def _load_file(self) -> json:
