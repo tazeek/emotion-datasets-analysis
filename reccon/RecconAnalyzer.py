@@ -29,6 +29,9 @@ class RecconAnalyzer:
 
         return None
 
+    def fetch_emotion_counts(self) -> dict:
+        return self._emotion_counter
+
     def fetch_raw_json(self) -> json:
         return self._json_file
 
