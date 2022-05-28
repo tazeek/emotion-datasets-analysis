@@ -20,6 +20,9 @@ class RecconAnalyzer:
         # Find the number of tokens (per utterance)
         self._token_counts = []
 
+        # Find the number of tokens (per emotion)
+        self._emotion_token_counts = []
+
         # Find the number of utterances (per dialogue)
         self._utt_per_diag_counter = []
 
@@ -44,6 +47,12 @@ class RecconAnalyzer:
     def _update_emotion_counter(self, emotion: str) -> None:
         self._emotion_counter[emotion] = self._emotion_counter.get(emotion, 0) + 1
 
+        return None
+
+    def _update_emotion_token_counter(self, emotion: str, token_length: int) -> None:
+        self._emotion_token_counts[emotion] = \
+            self._emotion_token_counts.get(emotion, [token_length]) + [token_length]
+        
         return None
     
     def _update_type_counter(self, type_list: list) -> None:
@@ -72,6 +81,7 @@ class RecconAnalyzer:
         self._update_emotion_counter(emotion)
         self._update_type_counter(cause_type_list)
         self._update_utt_counter(utter_len)
+        self._update_emotion_token_counter(emotion, utter_len)
 
         return None
 
@@ -92,6 +102,9 @@ class RecconAnalyzer:
 
     def fetch_token_counts_diag(self) -> list:
         return self._token_counts_per_diag
+
+    def fetch_token_counts_emotion(self) -> dict:
+        return self._update_emotion_token_counter
 
     def fetch_partition_file(self, part: str) -> json:
         index =  self._dataset_division[part]
