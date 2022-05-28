@@ -121,9 +121,6 @@ class RecconAnalyzer:
 
             # Update respective functions (per dialogue)
             self._update_utter_diag_counter(dialogue_set)
-            print(total_tokens_list)
             self._update_tokens_per_diag(sum(total_tokens_list))
-            print(self._token_counts_per_diag)
-            print("\n")
         
         return None
