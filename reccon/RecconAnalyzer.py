@@ -28,6 +28,12 @@ class RecconAnalyzer:
     def _load_file(self) -> json:
         return json.load(open('data_level0.json',encoding="utf-8"))
 
+    def _update_utterance_counter(self, utterance: str) -> None:
+        utter_tokens = utterance.split(" ")
+        self._token_counts += [len(utter_tokens)]
+
+        return None
+
     def _update_emotion_counter(self, emotion: str) -> None:
         self._emotion_counter[emotion] = self._emotion_counter.get(emotion, 0) + 1
 
@@ -47,9 +53,11 @@ class RecconAnalyzer:
     def _parse_utterance_dict(self, utt_dict: dict) -> None:
         emotion = utt_dict.get("emotion", None)
         cause_type_list = utt_dict.get("type", ['empty'])
+        utterance = utt_dict.get("utterance", "")
 
         self._update_emotion_counter(emotion)
         self._update_type_counter(cause_type_list)
+        self._update_utt_counter(utterance)
 
         return None
 
@@ -64,6 +72,9 @@ class RecconAnalyzer:
 
     def fetch_utter_diag_counts(self) -> list:
         return self._utt_per_diag_counter
+
+    def fetch_token_counter(self) -> list:
+        return self._token_counts
 
     def fetch_partition_file(self, part: str) -> json:
         index =  self._dataset_division[part]
