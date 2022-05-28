@@ -11,11 +11,23 @@ class RecconAnalyzer:
             'valid': 2,
         }
 
+        # For finding the distribution of emotions
+        self._emotion_counter = {}
+
     def _load_file(self) -> json:
         return json.load(open('data_level0.json',encoding="utf-8"))
+
+    def _update_emotion_counter(self, emotion: str) -> None:
+        self._emotion_counter[emotion] = self._emotion_counter.get(emotion, 0) + 1
+
+        return None
     
     def _parse_utterance_dict(self, utt_dict: dict) -> None:
-        pass
+        emotion = utt_dict['emotion']
+
+        self._update_emotion_counter(emotion)
+
+        return None
 
     def fetch_raw_json(self) -> json:
         return self._json_file
