@@ -65,4 +65,14 @@ class MeldAnalyzer:
         # First: extract and sort the dialogues and utterances
         # This is because the dataset structure is messy
         self._extract_dialogues_utterances(partition)
+
+        # Second: Loop through the partitioned dataset
+        # Combination: Dialogue_id + "_" + Utterance_ID
+        for dialogue_id, utterance_id_list in self._dialogue_list.items():
+
+            # Third: Extract the utterance from the JSON file
+            for id in utterance_id_list:
+                full_id = dialogue_id + "_" + id
+                utterance_dict = partition[full_id]
+
         return None
