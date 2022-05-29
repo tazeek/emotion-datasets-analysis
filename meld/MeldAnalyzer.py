@@ -6,6 +6,7 @@ class MeldAnalyzer:
 
         # Raw data
         self._json_file = None
+        self._dialogue_list = {}
 
         self._load_data()
 
@@ -15,7 +16,12 @@ class MeldAnalyzer:
         self._json_file = json.load(open('data_level0.json', encoding="utf8"))
         return None
 
-    def extract_partitions_keys(self) -> list:
+    def _extract_dialogues_utterances(self, data: json) -> None:
+        for dialogue_utterances in data:
+
+        return None
+
+    def fetch_partitions_keys(self) -> list:
         return list(self._json_file.keys())
 
     def fetch_raw_data(self) -> json:
@@ -25,4 +31,7 @@ class MeldAnalyzer:
         return self._json_file[key]
 
     def analyze_partition(self, partition: json) -> None:
-        pass
+        
+        # First: extract and sort the dialogues and utterances
+        # This is because the dataset structure is messy
+        return None
