@@ -1,11 +1,13 @@
 import json
-
+import re
 class MeldAnalyzer:
 
     def __init__(self) -> None:
 
         # Raw data
         self._json_file = None
+
+        # Extract dialogues with the list of utterances (IDs only)
         self._dialogue_list = {}
 
         self._load_data()
@@ -16,10 +18,38 @@ class MeldAnalyzer:
         self._json_file = json.load(open('data_level0.json', encoding="utf8"))
         return None
 
+    def _sort_utterance_list(self, utterance_list: list['str']) -> list['str']:
+
+        # Motivation: https://blog.codinghorror.com/sorting-for-humans-natural-sort-order/
+        # Utterance IDs are not ordered properly (Utt0, Utt1, Utt10, Utt11, Utt2)
+        # Hence, the sequence is broken from the beginning
+
+        # Check if there are any number or not
+        convert = lambda text: int(text) if text.isdigit() else text
+
+        # Extract the number from string by using regex
+        alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ]
+
+        # Sort the list
+        utterance_list.sort(key = alphanum_key)
+
+        return utterance_list
+
     def _extract_dialogues_utterances(self, data: json) -> None:
-        for dialogue_utterances in data:
+        for dialogue_utterance in data:
+            dialog_num, utterance_num = dialogue_utterance.split("_")
+            
+            self._dialogue_list[dialog_num] = \
+                self._dialogue_list.get(dialog_num, []) + [utterance_num]
+
+        # Now sort the utterance order per dialogue
+        for dialogue, utterance_list in self._dialogue_list.items():
+            self._dialogue_list[dialogue] = self._sort_utterance_list(utterance_list)
 
         return None
+    
+    def fetch_dialogue_utterance_list(self) -> dict:
+        return self._dialogue_list
 
     def fetch_partitions_keys(self) -> list:
         return list(self._json_file.keys())
@@ -34,4 +64,5 @@ class MeldAnalyzer:
         
         # First: extract and sort the dialogues and utterances
         # This is because the dataset structure is messy
+        self._extract_dialogues_utterances(partition)
         return None
