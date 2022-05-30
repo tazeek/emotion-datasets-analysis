@@ -62,6 +62,12 @@ class MeldAnalyzer:
         self._sentiment_utterance[sentiment] = self._sentiment_utterance.get(sentiment, 0) + 1
         
         return None
+
+    def fetch_emotion_utterance(self) -> dict:
+        return self._emotion_utterance
+    
+    def fetch_sentiment_utterance(self) -> dict:
+        return self._sentiment_utterance
     
     def fetch_dialogue_utterance_list(self) -> dict:
         return self._dialogue_list
