@@ -62,6 +62,7 @@ class MeldAnalyzer:
     def _parse_by_utterance(self, file_dict: dict) -> None:
         emotion = file_dict['Emotion']
         sentiment = file_dict['Sentiment']
+        utterance = self._preprocess_utterance(file_dict['Utterance'])
 
         self._emotion_utterance[emotion] = self._emotion_utterance.get(emotion, 0) + 1
         self._sentiment_utterance[sentiment] = self._sentiment_utterance.get(sentiment, 0) + 1
@@ -75,7 +76,7 @@ class MeldAnalyzer:
         return self._sentiment_utterance
     
     def fetch_dialogue_utterance_list(self) -> dict:
-        return self._dialogue_list
+        return self._dialogue_list.copy()
 
     def fetch_partitions_keys(self) -> list:
         return list(self._json_file.keys())
