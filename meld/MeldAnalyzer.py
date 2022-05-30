@@ -54,6 +54,11 @@ class MeldAnalyzer:
 
         return None
 
+    def _preprocess_utterance(self, utterance: str) -> str:
+        utterance = utterance.replace("’","'")
+
+        return utterance
+
     def _parse_by_utterance(self, file_dict: dict) -> None:
         emotion = file_dict['Emotion']
         sentiment = file_dict['Sentiment']
