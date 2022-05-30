@@ -13,6 +13,9 @@ class MeldAnalyzer:
         # Count number of emotions (per utterance)
         self._emotion_utterance = {}
 
+        # Count number of sentiment (per utterance)
+        self._sentiment_utterance = {}
+
         self._load_data()
 
         return None
@@ -53,9 +56,12 @@ class MeldAnalyzer:
 
     def _parse_by_utterance(self, file_dict: dict) -> None:
         emotion = file_dict['Emotion']
+        sentiment = file_dict['Sentiment']
 
         self._emotion_utterance[emotion] = self._emotion_utterance.get(emotion, 0) + 1
-        pass
+        self._sentiment_utterance[sentiment] = self._sentiment_utterance.get(sentiment, 0) + 1
+        
+        return None
     
     def fetch_dialogue_utterance_list(self) -> dict:
         return self._dialogue_list
