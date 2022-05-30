@@ -16,6 +16,9 @@ class MeldAnalyzer:
         # Count number of sentiment (per utterance)
         self._sentiment_utterance = {}
 
+        # Count number of tokens (per utterance)
+        self._tokens_utterance = []
+
         self._load_data()
 
         return None
@@ -64,8 +67,11 @@ class MeldAnalyzer:
         sentiment = file_dict['Sentiment']
         utterance = self._preprocess_utterance(file_dict['Utterance'])
 
+        utterance_tokens = utterance.split(" ")
+
         self._emotion_utterance[emotion] = self._emotion_utterance.get(emotion, 0) + 1
         self._sentiment_utterance[sentiment] = self._sentiment_utterance.get(sentiment, 0) + 1
+        self._tokens_utterance += [len(utterance_tokens)]
         
         return None
 
@@ -77,6 +83,9 @@ class MeldAnalyzer:
     
     def fetch_dialogue_utterance_list(self) -> dict:
         return self._dialogue_list.copy()
+
+    def fetch_token_length_utterances(self) -> list:
+        return self._tokens_utterance
 
     def fetch_partitions_keys(self) -> list:
         return list(self._json_file.keys())
