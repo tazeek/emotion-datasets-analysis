@@ -10,6 +10,9 @@ class MeldAnalyzer:
         # Extract dialogues with the list of utterances (IDs only)
         self._dialogue_list = {}
 
+        # Count number of emotions (per utterance)
+        self._emotion_utterance = {}
+
         self._load_data()
 
         return None
@@ -47,6 +50,12 @@ class MeldAnalyzer:
             self._dialogue_list[dialogue] = self._sort_utterance_list(utterance_list)
 
         return None
+
+    def _parse_by_utterance(self, file_dict: dict) -> None:
+        emotion = file_dict['Emotion']
+
+        self._emotion_utterance[emotion] = self._emotion_utterance.get(emotion, 0) + 1
+        pass
     
     def fetch_dialogue_utterance_list(self) -> dict:
         return self._dialogue_list
@@ -74,5 +83,7 @@ class MeldAnalyzer:
             for id in utterance_id_list:
                 full_id = dialogue_id + "_" + id
                 utterance_dict = partition[full_id]
+
+                self._parse_by_utterance(utterance_dict)
 
         return None
