@@ -13,6 +13,9 @@ class DailydialogAnalyzer:
         # For reading topic labels
         self._topic_labels_dict = self._read_label_file('dialogues_topic.txt')
 
+        # For extracting dialogues
+        self._dialogue_dict = self._read_dialogue_file('dialogues_text.txt')
+
         return
 
     def _read_label_file(self, label_file: str) -> dict:
@@ -23,6 +26,20 @@ class DailydialogAnalyzer:
                 label_dict[index] = line.split()
                 
         return label_dict
+
+    def _read_dialogue_file(self, dialogue_file: str) -> dict:
+        utterances_dict = {}
+    
+        with open(f"data\{dialogue_file}", encoding='utf8') as file:
+            for index,line in enumerate(file.readlines()):
+                line = line.replace('’',"'")
+                utterances = line.split('__eou__')
+                
+                # Remove the '\n' character
+                utterances.pop(-1)
+                utterances_dict[index] = utterances
+        
+        return utterances_dict
 
     def topic_mapping() -> dict:
         return {
