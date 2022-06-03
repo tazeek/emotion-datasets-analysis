@@ -60,7 +60,7 @@ class DailydialogAnalyzer:
         }
 
     def _tokenisation_utterance(self, utterance: str) -> list:
-        pass
+        return [word for word in utterance.split(" ") if word != '']
 
     def get_topic_distribution(self) -> dict:
 
