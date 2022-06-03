@@ -72,3 +72,16 @@ class DailydialogAnalyzer:
             topic_counter[topic] = topic_counter.get(topic, 0) + 1
         
         return topic_counter
+
+    def get_emotion_distribution(self) -> dict:
+
+        mapper = self._get_emotion_mapping()
+        emotion_counter = {}
+
+        for label_num, emotion_list in self._emotion_labels_dict.items():
+            emotion_list = [mapper[emotion] for emotion in emotion_list]
+            
+            for emotion in emotion_list:
+                emotion_counter[emotion] = emotion_counter.get(emotion, 0) + 1
+        
+        return emotion_counter
