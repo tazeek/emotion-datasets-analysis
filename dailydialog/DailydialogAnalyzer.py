@@ -100,3 +100,6 @@ class DailydialogAnalyzer:
                 
         
         return annotation_counter
+
+    def get_utterances_dialogue(self) -> dict:
+        return [len(dialog) for index, dialog in self._dialogue_dict]
