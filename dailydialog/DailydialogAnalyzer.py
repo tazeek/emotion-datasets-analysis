@@ -59,6 +59,9 @@ class DailydialogAnalyzer:
             '4': 'happiness', '5': 'sadness', '6': 'surprise'
         }
 
+    def _tokenisation_utterance(self, utterance: str) -> list:
+        pass
+
     def get_topic_distribution(self) -> dict:
 
         mapper = self._get_topic_mapping()
@@ -103,3 +106,6 @@ class DailydialogAnalyzer:
 
     def get_utterances_dialogue(self) -> dict:
         return [len(dialog) for index, dialog in self._dialogue_dict]
+
+    def parse_utterances(self) -> None:
+        utterance_length_list = []
