@@ -113,8 +113,6 @@ class DailydialogAnalyzer:
         for index, dialog in self._annotation_labels_dict.items():
 
             for utterance in dialog:
-                print(utterance)
-                utterance = self._tokenisation_utterance(utterance)
-                print(utterance)
+                utterance_length_list += self._tokenisation_utterance(utterance)
         
         return utterance_length_list
