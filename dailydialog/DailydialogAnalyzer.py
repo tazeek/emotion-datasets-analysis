@@ -79,10 +79,11 @@ class DailydialogAnalyzer:
         emotion_counter = {}
 
         for label_num, emotion_list in self._emotion_labels_dict.items():
-            emotion_list = [mapper[emotion] for emotion in emotion_list]
-            
+
             for emotion in emotion_list:
+                emotion = mapper[emotion]
                 emotion_counter[emotion] = emotion_counter.get(emotion, 0) + 1
+                
         
         return emotion_counter
     
@@ -92,9 +93,10 @@ class DailydialogAnalyzer:
         annotation_counter = {}
 
         for label_num, annotation_list in self._annotation_labels_dict.items():
-            annotation_list = [mapper[annotation] for annotation in annotation_list]
-            
+
             for annotation in annotation_list:
+                annotation = mapper[annotation] 
                 annotation_counter[annotation] = annotation_counter.get(annotation, 0) + 1
+                
         
         return annotation_counter
