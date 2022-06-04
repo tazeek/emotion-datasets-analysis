@@ -29,6 +29,9 @@ class RecconAnalyzer:
         # Find the number of tokens (per dialogue)
         self._token_counts_per_diag = []
 
+        # Begin Analysis
+        self._perform_analysis()
+
         return None
 
     def _load_file(self) -> json:
@@ -85,6 +88,21 @@ class RecconAnalyzer:
 
         return None
 
+    def _perform_analysis(self, file: json) -> None:
+        
+        for key in file.keys():
+            dialogue_set = file[key][0]
+            total_tokens_list = []
+
+            for utterance_dict in dialogue_set:
+                self._parse_utterance_dict(utterance_dict, total_tokens_list)
+
+            # Update respective functions (per dialogue)
+            self._update_utter_diag_counter(dialogue_set)
+            self._update_tokens_per_diag(sum(total_tokens_list))
+        
+        return None
+
     def fetch_cause_counts(self) -> dict:
         return self._cause_type_counter
 
@@ -109,18 +127,3 @@ class RecconAnalyzer:
     def fetch_partition_file(self, part: str) -> json:
         index =  self._dataset_division[part]
         return self._json_file[index]
-
-    def perform_analysis(self, file: json) -> None:
-        
-        for key in file.keys():
-            dialogue_set = file[key][0]
-            total_tokens_list = []
-
-            for utterance_dict in dialogue_set:
-                self._parse_utterance_dict(utterance_dict, total_tokens_list)
-
-            # Update respective functions (per dialogue)
-            self._update_utter_diag_counter(dialogue_set)
-            self._update_tokens_per_diag(sum(total_tokens_list))
-        
-        return None
