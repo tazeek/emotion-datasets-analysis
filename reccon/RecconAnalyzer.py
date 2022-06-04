@@ -40,12 +40,7 @@ class RecconAnalyzer:
         return self._json_file[index]
 
     def _load_file(self) -> json:
-        return json.load(open('data_level0.json',encoding="utf-8"))
-
-    def _update_tokens_per_diag(self, total_tokens: int) -> None:
-      self._token_counts_per_diag += [total_tokens]
-      
-      return None  
+        return json.load(open('data_level0.json',encoding="utf-8")) 
 
     def _update_utt_counter(self, utter_len: int) -> None:
         self._token_counts += [utter_len]
@@ -77,9 +72,23 @@ class RecconAnalyzer:
 
         return None
 
+    def _update_tokens_per_diag(self, dialog_list: list) -> None:
+      
+      # Extract the utterances
+      utterance_list = [utt_dict.get("utterance", "") for utt_dict in dialog_list]
+
+      # Lambda function for getting overall length of utterances
+      lambda_fun = lambda utt: len(self._tokenize_utterance(utt))
+
+      # Get the total summation
+      total_length = sum(lambda_fun(utt) for utt in utterance_list)
+      self._update_tokens_per_diag(total_length)
+
+      return None 
+
     def _parse_dialog_dict(self, dialog_list: list) -> None:
         self._update_utter_diag_counter(dialog_list)
-        #self._update_tokens_per_diag(sum(total_tokens_list))
+        self._update_tokens_per_diag(dialog_list)
         return None
     
     def _parse_utterance_dict(self, utt_dict: dict, total_tokens_list: list) -> None:
@@ -91,7 +100,7 @@ class RecconAnalyzer:
         utter_len = len(utterance_tokens)
 
         # Count number of tokens
-        total_tokens_list += [len(utterance_tokens)]
+        total_tokens_list += [utter_len]
 
         # Update respective functions (per utterance)
         self._update_emotion_counter(emotion)
