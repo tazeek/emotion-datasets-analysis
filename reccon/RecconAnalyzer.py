@@ -2,7 +2,7 @@ import json
 
 class RecconAnalyzer:
 
-    def __init__(self):
+    def __init__(self, partition_name: str):
         self._json_file =self. _load_file()
 
         self._dataset_division = {
@@ -30,9 +30,14 @@ class RecconAnalyzer:
         self._token_counts_per_diag = []
 
         # Begin Analysis
-        self._perform_analysis()
+        file = self._fetch_partition_file(partition_name)
+        self._perform_analysis(file)
 
         return None
+
+    def _fetch_partition_file(self, part: str) -> json:
+        index =  self._dataset_division[part]
+        return self._json_file[index]
 
     def _load_file(self) -> json:
         return json.load(open('data_level0.json',encoding="utf-8"))
@@ -123,7 +128,3 @@ class RecconAnalyzer:
 
     def fetch_token_counts_emotion(self) -> dict:
         return self._emotion_token_counts
-
-    def fetch_partition_file(self, part: str) -> json:
-        index =  self._dataset_division[part]
-        return self._json_file[index]
