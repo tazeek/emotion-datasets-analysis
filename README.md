@@ -19,3 +19,14 @@ Each file will have it's own analysis code. It consists of the following:
 - File must not contain **visualization code**.
 - Visualization is only in **Jupyter Notebooks**.
 - Documentation/Explanation is in either individual README or Jupyter Notebooks.
+
+### How it works
+
+1. Create the object
+-- Optional: Some may require the partitioned part to be passed in
+
+2. Analysis is done on object creation itself
+
+3. Fetch the analyzed parts
+-- This is the raw data of the analysis
+-- No preprocessing is done for visualization
