@@ -68,10 +68,18 @@ class RecconAnalyzer:
             self._cause_type_counter[type] = self._cause_type_counter.get(type, 0) + 1
 
         return None
+
+    def _tokenize_utterance(self, utterance: str) -> list:
+        return utterance.split(" ")
     
     def _update_utter_diag_counter(self, utter_list: list) -> None:
         self._utt_per_diag_counter += [len(utter_list)]
 
+        return None
+
+    def _parse_dialog_dict(self, dialog_list: list) -> None:
+        self._update_utter_diag_counter(dialog_list)
+        #self._update_tokens_per_diag(sum(total_tokens_list))
         return None
     
     def _parse_utterance_dict(self, utt_dict: dict, total_tokens_list: list) -> None:
@@ -79,7 +87,7 @@ class RecconAnalyzer:
         cause_type_list = utt_dict.get("type", ['empty'])
         utterance = utt_dict.get("utterance", "")
 
-        utterance_tokens = utterance.split(" ")
+        utterance_tokens = self._tokenize_utterance(utterance)
         utter_len = len(utterance_tokens)
 
         # Count number of tokens
@@ -99,12 +107,12 @@ class RecconAnalyzer:
             dialogue_set = file[key][0]
             total_tokens_list = []
 
-            for utterance_dict in dialogue_set:
-                self._parse_utterance_dict(utterance_dict, total_tokens_list)
-
             # Update respective functions (per dialogue)
-            self._update_utter_diag_counter(dialogue_set)
-            self._update_tokens_per_diag(sum(total_tokens_list))
+            self._parse_dialog_dict(dialogue_set)
+
+            for utterance_dict in dialogue_set:
+                # Update respective functions (per utterance)
+                self._parse_utterance_dict(utterance_dict, total_tokens_list)
         
         return None
 
