@@ -2,7 +2,7 @@ import json
 import re
 class MeldAnalyzer:
 
-    def __init__(self) -> None:
+    def __init__(self, partition_file: str) -> None:
 
         # Raw data
         self._json_file = None
@@ -19,9 +19,17 @@ class MeldAnalyzer:
         # Count number of tokens (per utterance)
         self._tokens_utterance = []
 
+        # Load and partition first
         self._load_data()
+        file = self._partition_file(partition_file)
+
+        # Perform Analysis
+        self._analyze_partition(file)
 
         return None
+
+    def _partition_file(self, key: str) -> json:
+        return self._json_file[key]
 
     def _load_data(self) -> None:
         self._json_file = json.load(open('data_level0.json', encoding="utf8"))
@@ -74,6 +82,25 @@ class MeldAnalyzer:
         self._tokens_utterance += [len(utterance_tokens)]
         
         return None
+    
+    def _analyze_partition(self, partition: json) -> None:
+        
+        # First: extract and sort the dialogues and utterances
+        # This is because the dataset structure is messy
+        self._extract_dialogues_utterances(partition)
+
+        # Second: Loop through the partitioned dataset
+        # Combination: Dialogue_id + "_" + Utterance_ID
+        for dialogue_id, utterance_id_list in self._dialogue_list.items():
+
+            # Third: Extract the utterance from the JSON file
+            for id in utterance_id_list:
+                full_id = dialogue_id + "_" + id
+                utterance_dict = partition[full_id]
+
+                self._parse_by_utterance(utterance_dict)
+
+        return None
 
     def fetch_emotion_utterance(self) -> dict:
         return self._emotion_utterance
@@ -92,25 +119,3 @@ class MeldAnalyzer:
 
     def fetch_raw_data(self) -> json:
         return self._json_file
-
-    def partition_file(self, key: str) -> json:
-        return self._json_file[key]
-
-    def analyze_partition(self, partition: json) -> None:
-        
-        # First: extract and sort the dialogues and utterances
-        # This is because the dataset structure is messy
-        self._extract_dialogues_utterances(partition)
-
-        # Second: Loop through the partitioned dataset
-        # Combination: Dialogue_id + "_" + Utterance_ID
-        for dialogue_id, utterance_id_list in self._dialogue_list.items():
-
-            # Third: Extract the utterance from the JSON file
-            for id in utterance_id_list:
-                full_id = dialogue_id + "_" + id
-                utterance_dict = partition[full_id]
-
-                self._parse_by_utterance(utterance_dict)
-
-        return None
