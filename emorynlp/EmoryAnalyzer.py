@@ -7,9 +7,6 @@ class EmoryAnalyzer:
         self._json_file = self._load_file
         pass
 
-    def _season_analysis(self):
-        pass
-
     def _load_file(self):
         filename = 'data_level0.json'
         f = open(filename)
@@ -19,3 +16,15 @@ class EmoryAnalyzer:
 
         for season in self._json_file:
             pass
+
+    def _season_analysis(self):
+        pass
+
+    def _episode_analysis(self):
+        pass
+
+    def _scenes_analysis(self):
+        pass
+
+    def _utterance_analysis(self):
+        pass
