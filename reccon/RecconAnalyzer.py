@@ -82,7 +82,7 @@ class RecconAnalyzer:
 
       # Get the total summation
       total_length = sum(lambda_fun(utt) for utt in utterance_list)
-      self._update_tokens_per_diag(total_length)
+      self._token_counts_per_diag += [total_length]
 
       return None 
 
