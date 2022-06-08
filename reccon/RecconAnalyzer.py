@@ -1,4 +1,5 @@
 import json
+from urllib.parse import _NetlocResultMixinStr
 
 class RecconAnalyzer:
 
@@ -91,6 +92,23 @@ class RecconAnalyzer:
       self._token_counts_per_diag += [total_length]
 
       return None 
+
+    def _update_dialog_len_emotion(self, dialog_list: list) -> None:
+        
+        # Get number of utterances
+        num_utterances = len(dialog_list)
+
+        # Get all the emotions in the dialog
+        emotions_list = [utt.get('emotion', "") for utt in dialog_list]
+
+        even_or_odd = 'even' if num_utterances % 2 == 0 else 'odd'
+
+        for emotion in emotions_list:
+            pass
+
+        
+
+        return None
 
     def _parse_dialog_dict(self, dialog_list: list) -> None:
         self._update_utter_diag_counter(dialog_list)
