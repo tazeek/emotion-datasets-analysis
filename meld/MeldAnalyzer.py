@@ -81,6 +81,15 @@ class MeldAnalyzer:
         
         return None
 
+    def _update_speaker_count(self, utterances: list) -> None:
+        
+        # Get all the speakers
+        speakers_list = [utterance['Speaker'] for utterance in utterances]
+
+        print(speakers_list)
+
+        return None
+
     def _preprocess_utterance(self, utterance: str) -> str:
         utterance = utterance.replace("’","'")
 
@@ -93,6 +102,9 @@ class MeldAnalyzer:
 
         # Extract all the utterances
         extract_utterances = [self._partition_file[id] for id in dialog_utt_ids]
+
+        # Extract the relevant data
+        self._update_speaker_count(extract_utterances)
         
         return None
 
