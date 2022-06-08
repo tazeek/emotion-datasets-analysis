@@ -86,6 +86,9 @@ class MeldAnalyzer:
 
         return utterance
 
+    def _parse_by_dialog(self, dialog_id: str, utt_list: list) -> None:
+        pass
+
     def _parse_by_utterance(self, file_dict: dict) -> None:
         emotion = file_dict['Emotion']
         sentiment = file_dict['Sentiment']
