@@ -29,6 +29,12 @@ class RecconAnalyzer:
         # Find the number of tokens (per dialogue)
         self._token_counts_per_diag = []
 
+        # Find the given emotions for dialog length (per dialog)
+        self._dialog_len_emotions = {
+            'even': {},
+            'odd': {}
+        }
+
         # Begin Analysis
         file = self._fetch_partition_file(partition_name)
         self._perform_analysis(file)
@@ -89,6 +95,8 @@ class RecconAnalyzer:
     def _parse_dialog_dict(self, dialog_list: list) -> None:
         self._update_utter_diag_counter(dialog_list)
         self._update_tokens_per_diag(dialog_list)
+        self._update_dialog_len_emotion(dialog_list)
+
         return None
     
     def _parse_utterance_dict(self, utt_dict: dict, total_tokens_list: list) -> None:
