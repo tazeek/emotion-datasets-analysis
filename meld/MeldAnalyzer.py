@@ -115,11 +115,15 @@ class MeldAnalyzer:
         # Combination: Dialogue_id + "_" + Utterance_ID
         for dialogue_id, utterance_id_list in self._dialogue_list.items():
 
+            # Parsing dialog level
+            self._parse_by_dialog(dialogue_id, utterance_id_list)
+
             # Third: Extract the utterance from the JSON file
             for id in utterance_id_list:
                 full_id = dialogue_id + "_" + id
                 utterance_dict = self._partition_file[full_id]
 
+                # Parsing utterance level
                 self._parse_by_utterance(utterance_dict)
 
         return None
