@@ -19,6 +19,9 @@ class MeldAnalyzer:
         # Count number of tokens (per utterance)
         self._tokens_utterance = []
 
+        # Count number of emotions per sentiment (per utterance)
+        self._emotions_per_sentiment = {}
+
         # Load and partition first
         self._load_data()
         file = self._partition_file(partition_file)
@@ -119,3 +122,6 @@ class MeldAnalyzer:
 
     def fetch_raw_data(self) -> json:
         return self._json_file
+
+    def fetch_emotions_sentiment(self) -> dict:
+        return self._emotions_per_sentiment
