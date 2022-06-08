@@ -26,6 +26,9 @@ class MeldAnalyzer:
             'neutral': {}
         }
 
+        # Find number of speakers (per dialog)
+        self._speakers_count = []
+
         # Load and partition first
         self._load_data()
         file = self._partition_file(partition_file)
@@ -134,6 +137,9 @@ class MeldAnalyzer:
 
     def fetch_raw_data(self) -> json:
         return self._json_file
+
+    def fetch_speakers_count(self) -> dict:
+        return self._speakers_count
 
     def fetch_emotions_sentiment(self) -> dict:
         return self._emotions_per_sentiment
