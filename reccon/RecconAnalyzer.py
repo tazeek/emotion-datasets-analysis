@@ -103,10 +103,11 @@ class RecconAnalyzer:
 
         even_or_odd = 'even' if num_utterances % 2 == 0 else 'odd'
 
+        # Increment dictionary
         for emotion in emotions_list:
-            pass
-
-        
+            
+            self._dialog_len_emotions[even_or_odd][emotion] = \
+                self._dialog_len_emotions[even_or_odd].get(emotion, 0) + 1
 
         return None
 
@@ -171,3 +172,6 @@ class RecconAnalyzer:
 
     def fetch_token_counts_emotion(self) -> dict:
         return self._emotion_token_counts
+
+    def fetch_emotion_dialog_len(self) -> dict:
+        return self._dialog_len_emotions
