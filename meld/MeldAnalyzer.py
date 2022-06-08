@@ -32,7 +32,7 @@ class MeldAnalyzer:
         return self._json_file[key]
 
     def _load_data(self) -> None:
-        self._json_file = json.load(open('data_level0.json', encoding="utf8"))
+        self._json_file = json.load(open('data.json', encoding="utf8"))
         return None
 
     def _sort_utterance_list(self, utterance_list: list['str']) -> list['str']:
