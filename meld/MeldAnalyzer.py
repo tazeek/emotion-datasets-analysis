@@ -87,7 +87,7 @@ class MeldAnalyzer:
         speakers_list = {utterance['Speaker'] for utterance in utterances}
 
         # Add to attribute list
-        self._speakers_count += len(speakers_list)
+        self._speakers_count += [len(speakers_list)]
 
         return None
 
