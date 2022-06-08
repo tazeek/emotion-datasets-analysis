@@ -20,7 +20,11 @@ class MeldAnalyzer:
         self._tokens_utterance = []
 
         # Count number of emotions per sentiment (per utterance)
-        self._emotions_per_sentiment = {}
+        self._emotions_per_sentiment = {
+            'positive': {},
+            'negative': {},
+            'neutral': {}
+        }
 
         # Load and partition first
         self._load_data()
@@ -68,6 +72,12 @@ class MeldAnalyzer:
 
         return None
 
+    def _update_emotion_sentiment(self, emotion: str, sentiment: str) -> None:
+        self._emotions_per_sentiment[sentiment][emotion] = \
+            self._emotions_per_sentiment[sentiment].get(emotion, 0) + 1
+        
+        return None
+
     def _preprocess_utterance(self, utterance: str) -> str:
         utterance = utterance.replace("’","'")
 
@@ -83,6 +93,8 @@ class MeldAnalyzer:
         self._emotion_utterance[emotion] = self._emotion_utterance.get(emotion, 0) + 1
         self._sentiment_utterance[sentiment] = self._sentiment_utterance.get(sentiment, 0) + 1
         self._tokens_utterance += [len(utterance_tokens)]
+
+        self._update_emotion_sentiment(emotion, sentiment)
         
         return None
     
