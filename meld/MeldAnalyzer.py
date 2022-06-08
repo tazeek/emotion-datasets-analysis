@@ -87,7 +87,13 @@ class MeldAnalyzer:
         return utterance
 
     def _parse_by_dialog(self, dialog_id: str, utt_id_list: list) -> None:
+
+        # Get all the IDs associated with given dialog
         dialog_utt_ids = [dialog_id + '_' + id for id in utt_id_list]
+
+        # Extract all the utterances
+        extract_utterances = [self._partition_file[id] for id in dialog_utt_ids]
+        
         return None
 
     def _parse_by_utterance(self, file_dict: dict) -> None:
