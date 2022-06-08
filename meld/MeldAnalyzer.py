@@ -31,14 +31,14 @@ class MeldAnalyzer:
 
         # Load and partition first
         self._load_data()
-        file = self._partition_file(partition_file)
+        self._partition_file = self._get_partition_file(partition_file)
 
         # Perform Analysis
-        self._analyze_partition(file)
+        self._analyze_partition()
 
         return None
 
-    def _partition_file(self, key: str) -> json:
+    def _get_partition_file(self, key: str) -> json:
         return self._json_file[key]
 
     def _load_data(self) -> None:
@@ -104,11 +104,11 @@ class MeldAnalyzer:
         
         return None
     
-    def _analyze_partition(self, partition: json) -> None:
+    def _analyze_partition(self) -> None:
         
         # First: extract and sort the dialogues and utterances
         # This is because the dataset structure is messy
-        self._extract_dialogues_utterances(partition)
+        self._extract_dialogues_utterances(self._partition_file)
 
         # Second: Loop through the partitioned dataset
         # Combination: Dialogue_id + "_" + Utterance_ID
@@ -117,7 +117,7 @@ class MeldAnalyzer:
             # Third: Extract the utterance from the JSON file
             for id in utterance_id_list:
                 full_id = dialogue_id + "_" + id
-                utterance_dict = partition[full_id]
+                utterance_dict = self._partition_file[full_id]
 
                 self._parse_by_utterance(utterance_dict)
 
