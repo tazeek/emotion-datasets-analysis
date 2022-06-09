@@ -105,6 +105,9 @@ class MeldAnalyzer:
 
         return utterance
 
+    def _fetch_full_dialog(self, dialog_id, utt_id_list: list) -> list:
+        pass
+
     def _parse_by_dialog(self, dialog_id: str, utt_id_list: list) -> None:
 
         # Get all the IDs associated with given dialog
