@@ -85,8 +85,11 @@ class MeldAnalyzer:
         return None
     
     def _update_emotion_utterance_len(self, emotion: str, utterance_len: int) -> None:
-        self._utterance_emotion_len[emotion] = \
-            self._utterance_emotion_len.get("emotion", [utterance_len]) + [utterance_len]
+
+        if self._utterance_emotion_len.get(emotion, None):
+            self._utterance_emotion_len[emotion] += [utterance_len]
+        else:
+            self._utterance_emotion_len[emotion] = [utterance_len]
         
         return None
 
@@ -105,19 +108,18 @@ class MeldAnalyzer:
 
         return utterance
 
-    def _fetch_full_dialog(self, dialog_id, utt_id_list: list) -> list:
-        pass
-
-    def _parse_by_dialog(self, dialog_id: str, utt_id_list: list) -> None:
+    def _extract_utterances(self, dialog_id, utt_id_list: list) -> list:
 
         # Get all the IDs associated with given dialog
         dialog_utt_ids = [dialog_id + '_' + id for id in utt_id_list]
 
         # Extract all the utterances
-        extract_utterances = [self._partition_file[id] for id in dialog_utt_ids]
+        return [self._partition_file[id] for id in dialog_utt_ids]
+
+    def _parse_by_dialog(self, utterance_list: list) -> None:
 
         # Extract the relevant data
-        self._update_speaker_count(extract_utterances)
+        self._update_speaker_count(utterance_list)
         
         return None
 
@@ -148,15 +150,14 @@ class MeldAnalyzer:
         for dialogue_id, utterance_id_list in self._dialogue_list.items():
 
             # Parsing dialog level
-            self._parse_by_dialog(dialogue_id, utterance_id_list)
+            utterance_list = self._extract_utterances(dialogue_id, utterance_id_list)
+            self._parse_by_dialog(utterance_list)
 
             # Third: Extract the utterance from the JSON file
-            for id in utterance_id_list:
-                full_id = dialogue_id + "_" + id
-                utterance_dict = self._partition_file[full_id]
+            for utterance in utterance_list:
 
                 # Parsing utterance level
-                self._parse_by_utterance(utterance_dict)
+                self._parse_by_utterance(utterance)
 
         return None
 
