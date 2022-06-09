@@ -29,6 +29,9 @@ class MeldAnalyzer:
         # Find number of speakers (per dialog)
         self._speakers_count = []
 
+        # Find utterance length for emotion (per utterance)
+        self._utterance_emotion_len = {}
+
         # Load and partition first
         self._load_data()
         self._partition_file = self._get_partition_file(partition_file)
@@ -80,6 +83,12 @@ class MeldAnalyzer:
             self._emotions_per_sentiment[sentiment].get(emotion, 0) + 1
         
         return None
+    
+    def _update_emotion_utterance_len(self, emotion: str, utterance_len: int) -> None:
+        self._utterance_emotion_len[emotion] = \
+            self._utterance_emotion_len.get("emotion", [utterance_len]) + [utterance_len]
+        
+        return None
 
     def _update_speaker_count(self, utterances: list) -> None:
         
@@ -121,6 +130,7 @@ class MeldAnalyzer:
         self._tokens_utterance += [len(utterance_tokens)]
 
         self._update_emotion_sentiment(emotion, sentiment)
+        self._update_emotion_utterance_len(emotion, len(utterance_tokens))
         
         return None
     
@@ -170,3 +180,6 @@ class MeldAnalyzer:
 
     def fetch_emotions_sentiment(self) -> dict:
         return self._emotions_per_sentiment
+
+    def fetch_emotions_utterance_len(self) -> dict:
+        return self._utterance_emotion_len
