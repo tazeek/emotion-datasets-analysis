@@ -6,15 +6,21 @@ class DailydialogAnalyzer:
         
         # For reading emotion labels
         self._emotion_labels_dict = self._read_label_file('dialogues_emotion.txt')
+        self._emotion_counts = {}
 
         # For reading annotation labels
         self._annotation_labels_dict = self._read_label_file('dialogues_act.txt')
+        self._annotation_counts = {}
 
         # For reading topic labels
         self._topic_labels_dict = self._read_label_file('dialogues_topic.txt')
+        self._topic_counts = {}
 
         # For extracting dialogues
         self._dialogue_dict = self._read_dialogue_file('dialogues_text.txt')
+
+        # Perform analysis
+        self._perform_analysis()
 
         return
 
