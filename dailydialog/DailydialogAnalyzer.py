@@ -62,6 +62,9 @@ class DailydialogAnalyzer:
     def _tokenisation_utterance(self, utterance: str) -> list:
         return [word for word in utterance.split(" ") if word != '']
 
+    def _perform_analysis(self) -> None:
+        pass
+
     def get_topic_distribution(self) -> dict:
 
         mapper = self._get_topic_mapping()
