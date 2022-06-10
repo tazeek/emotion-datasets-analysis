@@ -113,6 +113,15 @@ class DailydialogAnalyzer:
         
         return None
 
+    def fetch_topic_distribution(self) -> dict:
+        return self._topic_counts
+
+    def fetch_emotion_distribution(self) -> dict:
+        return self._emotion_counts
+
+    def fetch_annotation_distribution(self) -> dict:
+        return self._annotation_counts
+
     def get_utterances_dialogue(self) -> dict:
         return [len(dialog) for index, dialog in self._dialogue_dict]
 
