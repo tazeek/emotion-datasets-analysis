@@ -71,47 +71,47 @@ class DailydialogAnalyzer:
     def _perform_analysis(self) -> None:
         pass
 
-    def get_topic_distribution(self) -> dict:
+    def _extract_topic_distribution(self) -> None:
 
         mapper = self._get_topic_mapping()
-        topic_counter = {}
 
         for label_num, topic_list in self._topic_labels_dict.items():
     
             # One dialogue only has one topic. Hence, access zero index
             topic = mapper[topic_list[0]]
             
-            topic_counter[topic] = topic_counter.get(topic, 0) + 1
+            self._topic_counts[topic] = self._topic_counts.get(topic, 0) + 1
         
-        return topic_counter
+        return None
 
-    def get_emotion_distribution(self) -> dict:
+    def _extract_emotion_distribution(self) -> None:
 
         mapper = self._get_emotion_mapping()
-        emotion_counter = {}
 
         for label_num, emotion_list in self._emotion_labels_dict.items():
 
             for emotion in emotion_list:
                 emotion = mapper[emotion]
-                emotion_counter[emotion] = emotion_counter.get(emotion, 0) + 1
+
+                self._emotion_counts[emotion] = self._emotion_counts.get(emotion, 0) + 1
                 
         
-        return emotion_counter
+        return None
     
-    def get_annotation_distribution(self) -> dict:
+    def _extract_annotation_distribution(self) -> None:
 
         mapper = self._get_dialog_mapping()
-        annotation_counter = {}
 
         for label_num, annotation_list in self._annotation_labels_dict.items():
 
             for annotation in annotation_list:
                 annotation = mapper[annotation] 
-                annotation_counter[annotation] = annotation_counter.get(annotation, 0) + 1
+
+                self._annotation_counts[annotation] = \
+                    self._annotation_counts.get(annotation, 0) + 1
                 
         
-        return annotation_counter
+        return None
 
     def get_utterances_dialogue(self) -> dict:
         return [len(dialog) for index, dialog in self._dialogue_dict]
