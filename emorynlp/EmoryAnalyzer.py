@@ -6,7 +6,11 @@ class EmoryAnalyzer:
 
         self._json_file = self._load_file()
 
+        # Find all utterances
         self._utterance_list = []
+
+        # Find length of utterance
+        self._utterance_length = []
 
         self._begin_analysis()
 
@@ -47,12 +51,22 @@ class EmoryAnalyzer:
 
     def _utterance_analysis(self, utterances: list) -> None:
         
-        for utterance in utterances:
+        tokenizer_help = lambda utter: utter.split(" ")
+
+        for utterance_dict in utterances:
 
             # Extract utterance via 'transcript' key
-            self._utterance_list += [utterance['transcript']]
+            utterance = utterance_dict['transcript']
+            
+            self._utterance_list += [utterance]
+
+            # Extract utterances respective length
+            self._utterance_length += [len(tokenizer_help(utterance))]
 
         return None
 
     def fetch_all_utterances(self) -> list:
         return self._utterance_list
+
+    def fetch_utterances_length(self) -> list:
+        return self._utterance_length
