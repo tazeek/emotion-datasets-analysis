@@ -12,6 +12,9 @@ class EmoryAnalyzer:
         # Find length of utterance
         self._utterance_length = []
 
+        # Find number of emotions
+        self._emotion_count_dict = {}
+
         self._begin_analysis()
 
         return None
@@ -55,13 +58,17 @@ class EmoryAnalyzer:
 
         for utterance_dict in utterances:
 
-            # Extract utterance via 'transcript' key
-            utterance = utterance_dict['transcript']
+            utterance = utterance_dict.get('transcript', "")
+            emotion = utterance_dict.get('emotion', ['none'])
             
             self._utterance_list += [utterance]
 
             # Extract utterances respective length
             self._utterance_length += [len(tokenizer_help(utterance))]
+
+            # Extract the respective emotion per utterance
+            self._emotion_count_dict[emotion] = \
+                self._emotion_count_dict.get(emotion, 0) + 1
 
         return None
 
