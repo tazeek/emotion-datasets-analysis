@@ -6,6 +6,8 @@ class EmoryAnalyzer:
 
         self._json_file = self._load_file
 
+        self._utterance_list = []
+
         pass
 
     def _load_file(self):
@@ -13,7 +15,7 @@ class EmoryAnalyzer:
         f = open(filename)
         return json.load(f)
 
-    def _begin_analysis(self):
+    def _begin_analysis(self) -> None:
 
         for season in self._json_file:
             episodes = season['episodes']
@@ -22,7 +24,7 @@ class EmoryAnalyzer:
 
         return None
 
-    def _episode_analysis(self, episodes: list):
+    def _episode_analysis(self, episodes: list) -> None:
         
         for episode in episodes:
             scenes = episode['scenes']
@@ -32,12 +34,20 @@ class EmoryAnalyzer:
 
         return None
 
-    def _scenes_analysis(self, scenes: list):
+    def _scenes_analysis(self, scenes: list) -> None:
         
         for scene in scenes:
             utterances = scene['utterances']
 
+            self._utterance_analysis(utterances)
+
         return None
 
-    def _utterance_analysis(self):
-        pass
+    def _utterance_analysis(self, utterances: list) -> None:
+        
+        for utterance in utterances:
+
+            # Extract utterance via 'transcript' key
+            self._utterance_list += [utterance['transcript']]
+
+        return None
