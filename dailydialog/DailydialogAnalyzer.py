@@ -158,8 +158,14 @@ class DailydialogAnalyzer:
     def fetch_annotation_distribution(self) -> dict:
         return self._annotation_counts
 
-    def fetch_dialog_length(self) -> list:
+    def fetch_utterances_per_dialog(self) -> list:
         return self._utterance_num_dialog
+
+    def fetch_utterance_length(self) -> list:
+        return self._utterance_length
+
+    def fetch_dialog_length(self) -> list:
+        return self._dialog_length
 
     def parse_utterances(self) -> list:
         utterance_length_list = []
