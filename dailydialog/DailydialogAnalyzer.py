@@ -20,6 +20,12 @@ class DailydialogAnalyzer:
         self._dialogue_dict = self._read_dialogue_file('dialogues_text.txt')
 
         # Find number of utterances (per dialog)
+        self._utterance_num_dialog = []
+
+        # Find length of utterance (overall)
+        self._utterance_length = []
+
+        # Find length of full dialog (per dialog)
         self._dialog_length = []
 
         # Perform analysis
@@ -114,7 +120,9 @@ class DailydialogAnalyzer:
         return None
 
     def _extract_dialog_length(self) -> None:
-        self._dialog_length = [len(dialog) for index, dialog in self._dialogue_dict]
+        self._utterance_num_dialog = \
+            [len(dialog) for index, dialog in self._dialogue_dict]
+
         return None
 
     def _perform_analysis(self) -> None:
@@ -133,10 +141,7 @@ class DailydialogAnalyzer:
         return self._annotation_counts
 
     def fetch_dialog_length(self) -> list:
-        return self._dialog_length
-
-    def get_utterances_dialogue(self) -> dict:
-        return [len(dialog) for index, dialog in self._dialogue_dict]
+        return self._utterance_num_dialog
 
     def parse_utterances(self) -> list:
         utterance_length_list = []
