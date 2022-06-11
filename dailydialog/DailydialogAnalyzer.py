@@ -121,18 +121,18 @@ class DailydialogAnalyzer:
 
     def _extract_utterances_per_dialog(self) -> None:
         self._utterance_num_dialog = \
-            [len(dialog) for index, dialog in self._dialogue_dict]
+            [len(dialog) for index, dialog in self._dialogue_dict.items()]
 
         return None
 
     def _extract_utterance_length(self) -> None:
         
-        for index, utterances in self._dialog_dict:
+        for index, utterances in self._dialogue_dict.items():
 
             utterances_length_list = [len(utterance) for utterance in utterances]
 
             # For utterance length (individual)
-            self._utterance_length += [utterances_length_list]
+            self._utterance_length += utterances_length_list
 
             # For length of dialog
             self._dialog_length += [sum(utterances_length_list)]
