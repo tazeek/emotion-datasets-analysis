@@ -4,11 +4,13 @@ class EmoryAnalyzer:
 
     def __init__(self):
 
-        self._json_file = self._load_file
+        self._json_file = self._load_file()
 
         self._utterance_list = []
 
-        pass
+        self._begin_analysis()
+
+        return None
 
     def _load_file(self):
         filename = 'data_level0.json'
@@ -51,3 +53,6 @@ class EmoryAnalyzer:
             self._utterance_list += [utterance['transcript']]
 
         return None
+
+    def fetch_all_utterances(self) -> list:
+        return self._utterance_list
