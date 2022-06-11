@@ -119,9 +119,23 @@ class DailydialogAnalyzer:
         
         return None
 
-    def _extract_dialog_length(self) -> None:
+    def _extract_utterances_per_dialog(self) -> None:
         self._utterance_num_dialog = \
             [len(dialog) for index, dialog in self._dialogue_dict]
+
+        return None
+
+    def _extract_utterance_length(self) -> None:
+        
+        for index, utterances in self._dialog_dict:
+
+            utterances_length_list = [len(utterance) for utterance in utterances]
+
+            # For utterance length (individual)
+            self._utterance_length += [utterances_length_list]
+
+            # For length of dialog
+            self._dialog_length += [sum(utterances_length_list)]
 
         return None
 
@@ -130,6 +144,10 @@ class DailydialogAnalyzer:
         self._extract_annotation_distribution()
         self._extract_emotion_distribution()
         self._extract_topic_distribution()
+        self._extract_utterances_per_dialog()
+        self._extract_utterance_length()
+
+        return None
 
     def fetch_topic_distribution(self) -> dict:
         return self._topic_counts
