@@ -35,6 +35,9 @@ class MeldAnalyzer:
         # Find total length of dialog (per dialog)
         self._dialog_length = []
 
+        # Find emotion shifts (per dialog)
+        self._emotion_shifts_count = []
+
         # Load and partition first
         self._load_data()
         self._partition_file = self._get_partition_file(partition_file)
