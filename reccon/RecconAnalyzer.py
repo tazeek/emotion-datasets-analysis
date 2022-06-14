@@ -36,6 +36,12 @@ class RecconAnalyzer:
             'odd': {}
         }
 
+        # Find emotion shift counts (per dialog)
+        self._emotion_shift_counts = []
+
+        # Find turn number count of emotion cause (per dialog)
+        self._emotion_turn_cause = {}
+
         # Begin Analysis
         file = self._fetch_partition_file(partition_name)
         self._perform_analysis(file)
