@@ -137,14 +137,6 @@ class RecconAnalyzer:
         self._emotion_shift_counts += [emotion_shifts_count]
         return None
 
-    def _increment_dictionary_turn_cause(self, difference_list: list) -> None:
-
-        for difference in difference_list:
-            self._emotion_turn_cause[difference] = \
-                self._emotion_turn_cause.get(difference, 0) + 1
-
-        return None
-
     def _update_emotion_turn_cause_counts(self, dialog_list: list) -> None:
 
         helper_lambda = lambda utt: utt.get('expanded emotion cause evidence', [])
@@ -159,17 +151,18 @@ class RecconAnalyzer:
             if len(cause_list) == 0:
                 continue
             
-            # Latent emotions are labeled as "b"
-            # These are utterances, where the cause is in the future utterance(s)
-            if cause_list[0] == "b":
-                self._emotion_turn_cause['latent'] = \
-                    self._emotion_turn_cause.get('latent', 0) + 1
+            for cause in cause_list:
 
-                continue
+                # Latent emotions are labeled as "b"
+                # These are utterances, where the cause is in the future utterance(s)
+                if cause == 'b':
+                    self._emotion_turn_cause['latent'] = \
+                        self._emotion_turn_cause.get('latent', 0) + 1
+                else:
+                    difference = turn_number - cause
+                    self._emotion_turn_cause[difference] = \
+                        self._emotion_turn_cause.get(difference, 0) + 1
 
-            # Normal turn counts
-            cause_distance_list = [turn_number - cause_number for cause_number in cause_list]
-            self._increment_dictionary_turn_cause(cause_distance_list)
         return None
 
     def _parse_dialog_dict(self, dialog_list: list) -> None:
