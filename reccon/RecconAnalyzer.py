@@ -150,7 +150,13 @@ class RecconAnalyzer:
             # List is empty
             if len(cause_list) == 0:
                 continue
-
+            
+            # Latent emotions are labeled as "b"
+            # These are utterances, where the cause is in the future utterance(s)
+            if cause_list[0] == "b":
+                self._emotion_turn_cause['latent'] = \
+                    self._emotion_turn_cause.get('latent', 0) + 1
+                    
             print(turn_number)
             print(cause_list)
             print("\n")
