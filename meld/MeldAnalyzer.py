@@ -133,6 +133,7 @@ class MeldAnalyzer:
         current_sentiment = sentiments_list[0]
 
         sentiment_shift_counts = 0
+
         for sentiment in sentiments_list:
 
             if sentiment != current_sentiment:
@@ -141,6 +142,24 @@ class MeldAnalyzer:
 
         self._sentiment_shifts_count += [sentiment_shift_counts]
         return None
+
+    def _update_emotion_shifts(self, utterances: list) -> None:
+
+        # Extract emotions of utterances
+        emotions_list = [utt.get('Emotion', '') for utt in utterances]
+
+        current_emotion = emotions_list[0]
+
+        emotion_shift_counts = 0
+
+        for emotion in emotions_list:
+
+            if emotion != current_emotion:
+                emotion_shift_counts += 1
+                current_emotion = emotion
+
+        self._emotion_shifts_count += [emotion_shift_counts]
+        pass
 
     def _preprocess_utterance(self, utterance: str) -> str:
         utterance = utterance.replace("’","'")
@@ -161,6 +180,7 @@ class MeldAnalyzer:
         self._update_speaker_count(utterance_list)
         self._update_dialog_len(utterance_list)
         self._update_sentiment_shifts(utterance_list)
+        self._update_emotion_shifts(utterance_list)
         
         return None
 
