@@ -251,3 +251,9 @@ class MeldAnalyzer:
 
     def fetch_dialog_length(self) -> list:
         return self._dialog_length
+
+    def fetch_sentiment_shift_counts(self) -> list:
+        return self._sentiment_shifts_count
+
+    def fetch_emotion_shift_counts(self) -> list:
+        return self._emotion_shifts_count
