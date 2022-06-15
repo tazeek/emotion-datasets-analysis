@@ -160,6 +160,10 @@ class RecconAnalyzer:
                         self._emotion_turn_cause.get('latent', 0) + 1
                 else:
                     difference = turn_number - cause
+
+                    if difference < 0:
+                        print(dialog_list)
+                        print("\n")
                     self._emotion_turn_cause[difference] = \
                         self._emotion_turn_cause.get(difference, 0) + 1
 
@@ -236,4 +240,4 @@ class RecconAnalyzer:
         return self._emotion_shift_counts
 
     def fetch_emotion_turn_causes(self) -> dict:
-        return self._emotion_turn_cause
+        return self._emotion_turn_cause.copy()
