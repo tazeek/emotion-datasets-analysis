@@ -208,7 +208,6 @@ class RecconAnalyzer:
 
             # Update respective functions (per dialogue)
             self._parse_dialog_dict(dialogue_set)
-            break
 
             for utterance_dict in dialogue_set:
                 # Update respective functions (per utterance)
