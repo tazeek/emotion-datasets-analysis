@@ -122,6 +122,9 @@ class MeldAnalyzer:
 
         return None
 
+    def _update_sentiment_shifts(self, utterances: list) -> None:
+        pass
+
     def _preprocess_utterance(self, utterance: str) -> str:
         utterance = utterance.replace("’","'")
 
@@ -140,6 +143,7 @@ class MeldAnalyzer:
         # Extract the relevant data
         self._update_speaker_count(utterance_list)
         self._update_dialog_len(utterance_list)
+        self._update_sentiment_shifts(utterance_list)
         
         return None
 
