@@ -117,10 +117,14 @@ class RecconAnalyzer:
 
         return None
 
+    def _update_emotion_shift_counts(self, dialog_list: list) -> None:
+        pass
+
     def _parse_dialog_dict(self, dialog_list: list) -> None:
         self._update_utter_diag_counter(dialog_list)
         self._update_tokens_per_diag(dialog_list)
         self._update_dialog_len_emotion(dialog_list)
+        self._update_emotion_shift_counts(dialog_list)
 
         return None
     
