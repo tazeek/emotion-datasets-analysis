@@ -35,6 +35,9 @@ class MeldAnalyzer:
         # Find total length of dialog (per dialog)
         self._dialog_length = []
 
+        # Find sentiment shifts (per dialog)
+        self._sentiment_shifts_count = []
+
         # Find emotion shifts (per dialog)
         self._emotion_shifts_count = []
 
@@ -123,7 +126,21 @@ class MeldAnalyzer:
         return None
 
     def _update_sentiment_shifts(self, utterances: list) -> None:
-        pass
+        
+        # Extract sentiments of utterances
+        sentiments_list = [utt.get('Sentiment', '') for utt in utterances]
+
+        current_sentiment = sentiments_list[0]
+
+        sentiment_shift_counts = 0
+        for sentiment in sentiments_list:
+
+            if sentiment != current_sentiment:
+                sentiment_shift_counts += 1
+                current_sentiment = sentiment
+
+        self._sentiment_shifts_count += [sentiment_shift_counts]
+        return None
 
     def _preprocess_utterance(self, utterance: str) -> str:
         utterance = utterance.replace("’","'")
