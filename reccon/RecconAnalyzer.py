@@ -118,7 +118,28 @@ class RecconAnalyzer:
         return None
 
     def _update_emotion_shift_counts(self, dialog_list: list) -> None:
-        pass
+
+        # Get all the emotions
+        print(dialog_list)
+        print("\n")
+        emotions_list = [utt.get('emotion', "") for utt in dialog_list]
+        print(emotions_list)
+
+        current_emotion = emotions_list[0]
+
+        # Loop through one emotion at a time
+        emotion_shifts_count = 0
+
+        for emotion in emotions_list:
+            
+            # Emotion shift happens here
+            if emotion != current_emotion:
+                emotion_shifts_count += 1
+                current_emotion = emotion
+        
+        self._emotion_shift_counts += [emotion_shifts_count]
+        print(emotion_shifts_count)
+        return None
 
     def _parse_dialog_dict(self, dialog_list: list) -> None:
         self._update_utter_diag_counter(dialog_list)
@@ -155,7 +176,7 @@ class RecconAnalyzer:
 
             # Update respective functions (per dialogue)
             self._parse_dialog_dict(dialogue_set)
-
+            break
             for utterance_dict in dialogue_set:
                 # Update respective functions (per utterance)
                 self._parse_utterance_dict(utterance_dict, total_tokens_list)
