@@ -156,9 +156,14 @@ class RecconAnalyzer:
             if cause_list[0] == "b":
                 self._emotion_turn_cause['latent'] = \
                     self._emotion_turn_cause.get('latent', 0) + 1
-                    
+
+                continue
+
+            # Normal turn counts
+            cause_distance_list = [turn_number - cause_number for cause_number in cause_list]
             print(turn_number)
             print(cause_list)
+            print(cause_distance_list)
             print("\n")
         return None
 
