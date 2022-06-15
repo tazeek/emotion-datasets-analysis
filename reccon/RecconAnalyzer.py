@@ -139,11 +139,12 @@ class RecconAnalyzer:
 
     def _update_emotion_turn_cause_counts(self, dialog_list: list) -> None:
 
-        # Extract the turn cause via key 'expanded emotion cause evidence'
         helper_lambda = lambda utt: utt.get('expanded emotion cause evidence', [])
 
+        # Extract the turn cause via key 'expanded emotion cause evidence'
+        emotion_cause_turn_lists = [helper_lambda(utt) for utt in dialog_list]
+        turn_numbers = [utt.get('turn','0') for utt in dialog_list]
         return None
-        pass
 
     def _parse_dialog_dict(self, dialog_list: list) -> None:
         self._update_utter_diag_counter(dialog_list)
@@ -181,6 +182,7 @@ class RecconAnalyzer:
 
             # Update respective functions (per dialogue)
             self._parse_dialog_dict(dialogue_set)
+            break
 
             for utterance_dict in dialogue_set:
                 # Update respective functions (per utterance)
