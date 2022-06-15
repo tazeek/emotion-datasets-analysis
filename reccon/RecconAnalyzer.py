@@ -39,7 +39,7 @@ class RecconAnalyzer:
         # Find emotion shift counts (per dialog)
         self._emotion_shift_counts = []
 
-        # Find turn number count of emotion cause (per dialog)
+        # Find turn number(s) count of emotion cause (per dialog)
         self._emotion_turn_cause = {}
 
         # Begin Analysis
@@ -137,11 +137,20 @@ class RecconAnalyzer:
         self._emotion_shift_counts += [emotion_shifts_count]
         return None
 
+    def _update_emotion_turn_cause_counts(self, dialog_list: list) -> None:
+
+        # Extract the turn cause via key 'expanded emotion cause evidence'
+        helper_lambda = lambda utt: utt.get('expanded emotion cause evidence', [])
+
+        return None
+        pass
+
     def _parse_dialog_dict(self, dialog_list: list) -> None:
         self._update_utter_diag_counter(dialog_list)
         self._update_tokens_per_diag(dialog_list)
         self._update_dialog_len_emotion(dialog_list)
         self._update_emotion_shift_counts(dialog_list)
+        self._update_emotion_turn_cause_counts(dialog_list)
 
         return None
     
@@ -205,3 +214,6 @@ class RecconAnalyzer:
 
     def fetch_emotion_shift_counts(self) -> list:
         return self._emotion_shift_counts
+
+    def fetch_emotion_turn_causes(self) -> dict:
+        return self._emotion_turn_cause
