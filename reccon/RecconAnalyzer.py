@@ -144,6 +144,16 @@ class RecconAnalyzer:
         # Extract the turn cause via key 'expanded emotion cause evidence'
         emotion_cause_turn_lists = [helper_lambda(utt) for utt in dialog_list]
         turn_numbers = [utt.get('turn','0') for utt in dialog_list]
+
+        for turn_number, cause_list in zip(turn_numbers, emotion_cause_turn_lists):
+
+            # List is empty
+            if len(cause_list) == 0:
+                continue
+
+            print(turn_number)
+            print(cause_list)
+            print("\n")
         return None
 
     def _parse_dialog_dict(self, dialog_list: list) -> None:
