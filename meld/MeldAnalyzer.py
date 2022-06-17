@@ -41,6 +41,9 @@ class MeldAnalyzer:
         # Find emotion shifts (per dialog)
         self._emotion_shifts_count = []
 
+        # Check if emotions are different when sentiment is same
+        self._same_sentiment_diff_emotion_count = []
+
         # Load and partition first
         self._load_data()
         self._partition_file = self._get_partition_file(partition_file)
