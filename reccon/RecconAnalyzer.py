@@ -42,6 +42,21 @@ class RecconAnalyzer:
         # Find turn number(s) count of emotion cause (per dialog)
         self._emotion_turn_cause = {}
 
+        # Find dialog length per emotion shift (per dialog)
+        self._dialog_length_emotion_shift = {}
+
+        # Find pairwise checks between emotion causes (per dialog)
+        self._pairwise_emotions = {
+            'same_emotion': 0,
+            'different_emotion': 0
+        }
+
+        # Find checks between sentiment-level of emotion causes (per dialog)
+        self._pairwise_sentiment = {
+            'same_sentiment': 0,
+            'different_sentiment': 0
+        }
+
         # Begin Analysis
         file = self._fetch_partition_file(partition_name)
         self._perform_analysis(file)
