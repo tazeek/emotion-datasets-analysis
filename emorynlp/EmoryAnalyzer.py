@@ -15,6 +15,9 @@ class EmoryAnalyzer:
         # Find number of emotions
         self._emotion_count_dict = {}
 
+        # Extract by season and episode (For comparison with MELD)
+        self._extract_season_episode = {}
+
         self._begin_analysis()
 
         return None

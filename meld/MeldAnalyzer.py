@@ -44,6 +44,9 @@ class MeldAnalyzer:
         # Check if emotions are different when sentiment is same
         self._same_sentiment_diff_emotion_count = []
 
+        # Extract by season and episode (For comparison with Emory)
+        self._extract_season_episode = {}
+
         # Load and partition first
         self._load_data()
         self._partition_file = self._get_partition_file(partition_file)
