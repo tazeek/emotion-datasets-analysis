@@ -139,6 +139,16 @@ class DailydialogAnalyzer:
 
         return None
 
+    def _extract_tokens_per_utterance(self) -> None:
+
+        # Get utterance
+
+        # Tokenize
+
+        # Count the number of tokens
+
+        ...
+
     def _perform_analysis(self) -> None:
         
         self._extract_annotation_distribution()
@@ -146,7 +156,7 @@ class DailydialogAnalyzer:
         self._extract_topic_distribution()
         self._extract_utterances_per_dialog()
         self._extract_utterance_length()
-        self._extract_
+        self._extract_tokens_per_utterance()
 
         return None
 
