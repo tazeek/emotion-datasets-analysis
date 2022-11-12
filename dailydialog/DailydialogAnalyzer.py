@@ -149,6 +149,16 @@ class DailydialogAnalyzer:
 
         ...
 
+    def _extract_dialog_act_per_emotion(self) -> None:
+
+        # Get the dialog act
+
+        # Get the emotion
+
+        # Store in dictionary
+
+        ...
+
     def _perform_analysis(self) -> None:
         
         self._extract_annotation_distribution()
