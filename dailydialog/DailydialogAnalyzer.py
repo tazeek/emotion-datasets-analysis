@@ -146,6 +146,7 @@ class DailydialogAnalyzer:
         self._extract_topic_distribution()
         self._extract_utterances_per_dialog()
         self._extract_utterance_length()
+        self._extract_
 
         return None
 
@@ -166,13 +167,3 @@ class DailydialogAnalyzer:
 
     def fetch_dialog_length(self) -> list:
         return self._dialog_length
-
-    def parse_utterances(self) -> list:
-        utterance_length_list = []
-
-        for index, dialog in self._annotation_labels_dict.items():
-
-            for utterance in dialog:
-                utterance_length_list += self._tokenisation_utterance(utterance)
-        
-        return utterance_length_list
