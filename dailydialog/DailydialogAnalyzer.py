@@ -171,6 +171,9 @@ class DailydialogAnalyzer:
 
         return None
 
+    def fetch_all_utterances(self) -> list:
+        return self._dialogue_dict.items()
+
     def fetch_topic_distribution(self) -> dict:
         return self._topic_counts
 
