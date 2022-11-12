@@ -39,8 +39,23 @@ class RecconAnalyzer:
         # Find emotion shift counts (per dialog)
         self._emotion_shift_counts = []
 
-        # Find turn number count of emotion cause (per dialog)
+        # Find turn number(s) count of emotion cause (per dialog)
         self._emotion_turn_cause = {}
+
+        # Find dialog length per emotion shift (per dialog)
+        self._dialog_length_emotion_shift = {}
+
+        # Find pairwise checks between emotion causes (per dialog)
+        self._pairwise_emotions = {
+            'same_emotion': 0,
+            'different_emotion': 0
+        }
+
+        # Find checks between sentiment-level of emotion causes (per dialog)
+        self._pairwise_sentiment = {
+            'same_sentiment': 0,
+            'different_sentiment': 0
+        }
 
         # Begin Analysis
         file = self._fetch_partition_file(partition_name)
@@ -137,11 +152,44 @@ class RecconAnalyzer:
         self._emotion_shift_counts += [emotion_shifts_count]
         return None
 
+    def _update_emotion_turn_cause_counts(self, dialog_list: list) -> None:
+
+        helper_lambda = lambda utt: utt.get('expanded emotion cause evidence', [])
+
+        # Extract the turn cause via key 'expanded emotion cause evidence'
+        emotion_cause_turn_lists = [helper_lambda(utt) for utt in dialog_list]
+        turn_numbers = [utt.get('turn','0') for utt in dialog_list]
+
+        for turn_number, cause_list in zip(turn_numbers, emotion_cause_turn_lists):
+
+            # List is empty
+            if len(cause_list) == 0:
+                continue
+            
+            for cause in cause_list:
+
+                # Latent emotions are labeled as "b"
+                # These are utterances, where the cause is in the future utterance(s)
+                if cause == 'b':
+                    self._emotion_turn_cause['latent'] = \
+                        self._emotion_turn_cause.get('latent', 0) + 1
+                else:
+                    difference = turn_number - cause
+
+                    if difference < 0:
+                        print(dialog_list)
+                        print("\n")
+                    self._emotion_turn_cause[difference] = \
+                        self._emotion_turn_cause.get(difference, 0) + 1
+
+        return None
+
     def _parse_dialog_dict(self, dialog_list: list) -> None:
         self._update_utter_diag_counter(dialog_list)
         self._update_tokens_per_diag(dialog_list)
         self._update_dialog_len_emotion(dialog_list)
         self._update_emotion_shift_counts(dialog_list)
+        self._update_emotion_turn_cause_counts(dialog_list)
 
         return None
     
@@ -205,3 +253,6 @@ class RecconAnalyzer:
 
     def fetch_emotion_shift_counts(self) -> list:
         return self._emotion_shift_counts
+
+    def fetch_emotion_turn_causes(self) -> dict:
+        return self._emotion_turn_cause.copy()

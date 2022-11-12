@@ -28,6 +28,18 @@ class DailydialogAnalyzer:
         # Find length of full dialog (per dialog)
         self._dialog_length = []
 
+        # Check for emotion shifts (per dialog)
+        self._emotion_shifts = []
+
+        # Check for emotion and sentiment shifts (per dialog)
+        self._sentiment_emotion_shifts = []
+
+        # Check between utterance length and emotion shifts (per dialog)
+        self._emotion_shift_utt_length = {}
+
+        # Check between type of annotation and emotion
+        self._annotation_emotion_correlation = {}
+
         # Perform analysis
         self._perform_analysis()
 
