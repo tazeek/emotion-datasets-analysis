@@ -143,7 +143,7 @@ class DailydialogAnalyzer:
 
         # Get utterance
         utterances_dialog = self.fetch_all_utterances()
-        token_count_list = []
+        self._token_count_list = []
 
         for utterance_list in utterances_dialog:
 
@@ -154,11 +154,11 @@ class DailydialogAnalyzer:
             ]
 
             # Count the number of tokens
-            token_count_list += [
+            self._token_count_list += [
                 len(utterance) for utterance in tokenized_utterances
             ]
 
-        return token_count_list
+        return None
 
     def _extract_dialog_act_per_emotion(self) -> None:
 
@@ -202,3 +202,6 @@ class DailydialogAnalyzer:
 
     def fetch_dialog_length(self) -> list:
         return self._dialog_length
+
+    def fetch_token_counts(self) -> list:
+        return self._token_count_list
