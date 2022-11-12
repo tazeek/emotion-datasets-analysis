@@ -167,6 +167,7 @@ class DailydialogAnalyzer:
         self._extract_utterances_per_dialog()
         self._extract_utterance_length()
         self._extract_tokens_per_utterance()
+        self._extract_dialog_act_per_emotion()
 
         return None
 
