@@ -142,12 +142,23 @@ class DailydialogAnalyzer:
     def _extract_tokens_per_utterance(self) -> None:
 
         # Get utterance
+        utterances_dialog = self.fetch_all_utterances()
+        token_count_list = []
 
-        # Tokenize
+        for utterance_list in utterances_dialog:
 
-        # Count the number of tokens
+            # Tokenize
+            tokenized_utterances = [
+                self._tokenisation_utterance(utterance) 
+                for utterance in utterance_list
+            ]
 
-        ...
+            # Count the number of tokens
+            token_count_list += [
+                len(utterance) for utterance in tokenized_utterances
+            ]
+
+        return token_count_list
 
     def _extract_dialog_act_per_emotion(self) -> None:
 
@@ -172,7 +183,7 @@ class DailydialogAnalyzer:
         return None
 
     def fetch_all_utterances(self) -> list:
-        return self._dialogue_dict.items()
+        return self._dialogue_dict.values()
 
     def fetch_topic_distribution(self) -> dict:
         return self._topic_counts
