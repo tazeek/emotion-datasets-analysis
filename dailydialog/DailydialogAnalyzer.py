@@ -151,6 +151,37 @@ class DailydialogAnalyzer:
 
         return None
 
+    def _extract_tokens_per_utterance(self) -> None:
+
+        # Get utterance
+        utterances_dialog = self.fetch_all_utterances()
+        self._token_count_list = []
+
+        for utterance_list in utterances_dialog:
+
+            # Tokenize
+            tokenized_utterances = [
+                self._tokenisation_utterance(utterance) 
+                for utterance in utterance_list
+            ]
+
+            # Count the number of tokens
+            self._token_count_list += [
+                len(utterance) for utterance in tokenized_utterances
+            ]
+
+        return None
+
+    def _extract_dialog_act_per_emotion(self) -> None:
+
+        # Get the dialog act
+
+        # Get the emotion
+
+        # Store in dictionary
+
+        ...
+
     def _perform_analysis(self) -> None:
         
         self._extract_annotation_distribution()
@@ -158,8 +189,13 @@ class DailydialogAnalyzer:
         self._extract_topic_distribution()
         self._extract_utterances_per_dialog()
         self._extract_utterance_length()
+        self._extract_tokens_per_utterance()
+        self._extract_dialog_act_per_emotion()
 
         return None
+
+    def fetch_all_utterances(self) -> list:
+        return self._dialogue_dict.values()
 
     def fetch_topic_distribution(self) -> dict:
         return self._topic_counts
@@ -179,12 +215,5 @@ class DailydialogAnalyzer:
     def fetch_dialog_length(self) -> list:
         return self._dialog_length
 
-    def parse_utterances(self) -> list:
-        utterance_length_list = []
-
-        for index, dialog in self._annotation_labels_dict.items():
-
-            for utterance in dialog:
-                utterance_length_list += self._tokenisation_utterance(utterance)
-        
-        return utterance_length_list
+    def fetch_token_counts(self) -> list:
+        return self._token_count_list
